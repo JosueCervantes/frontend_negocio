@@ -12,15 +12,13 @@ const FrontEnd = () => {
     }
     const { handleEstasLogueado } = context;
     const location = useLocation();
-    if (location.pathname == '/login') {
 
-    } else {
-        //login
-        useEffect(() => {
+    useEffect(() => {
+        if (location.pathname !== '/login') {
             handleEstasLogueado();
-        },);
-        
-    }
+        }
+    }, [location.pathname, handleEstasLogueado]);
+
     return (
         <Outlet />
     )

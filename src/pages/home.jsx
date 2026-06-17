@@ -11,7 +11,7 @@ export default function Home() {
                     <main className="content">
                         <div className="container-fluid p-0">
                             <h1 className="h3 mb-3">
-                                {`${import.meta.env.VITE_API_TITULO}`}
+                                Negocio Prueba
                             </h1>
                             <div className="row">
 

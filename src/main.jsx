@@ -1,29 +1,19 @@
-import { StrictMode } from 'react'
-import ReactDOM from 'react-dom'
 import { createRoot } from 'react-dom/client'
-import { createBrowseRouter, BrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import App from './App.jsx'
 import './styles/style.css'
 
-//componentes
+import { AuthProvider } from './context/AuthProvider'
 import FrontEnd from './components/frontend'
-import Header from './components/header'
-import Footer from './components/footer'
-
-//pages
 import Home from './pages/home'
 import Login from './pages/login'
 import Perfiles from './pages/perfiles'
 import Users from './pages/users'
-import error404 from './pages/error404'
-import error405 from './pages/error405'
+import Error500 from './pages/error500'
+import Error404 from './pages/error404'
 
-import RecoveryUpdate from './pages/restablecer/RecoveryUpdate'
-import Restablecer from './pages/restablecer/Restablecer'
-
-let router = createBrowseRouter(
+const router = createBrowserRouter(
   [
     {
       path: '/',
@@ -32,40 +22,41 @@ let router = createBrowseRouter(
         {
           index: true,
           element: <Home />,
-          errorElement: <error405 />,
+          errorElement: <Error500 />,
+        },
+        {
+          path: 'login',
+          element: <Login />,
+          errorElement: <Error500 />,
         },
         {
           path: 'home',
-          element: <Login />,
-          errorElement: <error405 />,
+          element: <Home />,
+          errorElement: <Error500 />,
         },
         {
           path: 'perfiles',
           element: <Perfiles />,
-          errorElement: <error405 />,
+          errorElement: <Error500 />,
         },
         {
           path: 'users',
           element: <Users />,
-          errorElement: <error405 />,
-        }
+          errorElement: <Error500 />,
+        },
       ]
     },
     {
-      path: 'restablecer',
-      element: <Restablecer />,
+      path: '*',
+      element: <Error404 />,
     },
-    {
-      path: 'recovery/update/:token',
-      element: <RecoveryUpdate />,
-    }
   ]
 )
 
-let rootElement = document.getElementById('root')
+const rootElement = document.getElementById('root')
 
 if (rootElement) {
-  ReactDOM.createRoot(rootElement).render(
+  createRoot(rootElement).render(
     <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>
